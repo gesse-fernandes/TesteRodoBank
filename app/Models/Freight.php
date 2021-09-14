@@ -25,11 +25,21 @@ class Freight extends Model
     //aqui onde vai ser os campos obrigatorios na validação
     public static $rules =
     [
-
+        'board'=> 'string|required|unique:freights',
+        'vehicle_owner'=>'string|required',
+        'price_freight'=>'required',
+        'date_start'=> 'required|date_format:Y-m-d',
+        'date_end'=> 'required|date_format:Y-m-d',
+        'status'=>'required|in:Iniciado,em trânsito,concluido'
     ];
     //mensagens de validação
     public static $messages =
     [
-
+        'board.required'=>'Placa do veiculo é Obrigatória',
+        'vehicle_owner.required'=>'Dono do Veiculo é Obrigatório',
+        'price_freight.required'=>'Valor do frete Obrigatóio',
+        'date_start.required'=>'Data inicio Obrigatória',
+        'date_end.required'=>'Data fim Obrigatória',
+        'status.required'=>'Status Obrigatório',
     ];
 }

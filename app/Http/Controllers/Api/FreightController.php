@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FreightRequest;
+use App\Models\Freight;
 use App\Repositories\FreightRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -21,10 +23,15 @@ class FreightController extends Controller
      }
     public function index()
     {
-        $freights = $this->freight->all();
-        return response()->json([
-            $freights,
-        ]);
+       $freights = $this->freight->all();
+
+       if($freights)
+       {
+           return response()->json([
+            'data'=>$freights,
+           ]);
+       }
+
     }
 
     /**
@@ -43,9 +50,21 @@ class FreightController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FreightRequest $request)
     {
-        //
+        $create = $this->freight->store($request);
+        if($create)
+        {
+            return response()->json([
+                $create,
+            ]);
+        }
+        if(is_string($create))
+        {
+            return response()->json([
+                'msg_fails'=>$create,
+            ]);
+        }
     }
 
     /**
