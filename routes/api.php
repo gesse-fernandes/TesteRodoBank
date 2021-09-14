@@ -20,6 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/
 
-Route::get('/allFreight',[FreightController::class,'index']);
+Route::get('/freight/listar',[FreightController::class,'index']);
 
-Route::post('/freight/store',[FreightController::class, 'store']);
+Route::post('/freight/criar',[FreightController::class, 'store']);
