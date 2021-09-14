@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\FreightRepositoryInterface;
 use Illuminate\Http\Request;
 
 class FreightController extends Controller
@@ -12,9 +13,18 @@ class FreightController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     private $freight;
+
+     public function __construct(FreightRepositoryInterface $freightRepositoryInterface)
+     {
+        $this->freight = $freightRepositoryInterface;
+     }
     public function index()
     {
-        //
+        $freights = $this->freight->all();
+        return response()->json([
+            $freights,
+        ]);
     }
 
     /**
