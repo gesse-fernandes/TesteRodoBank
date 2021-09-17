@@ -31,7 +31,8 @@ class Freight extends Model
         'price_freight'=>'required',
         'date_start'=> 'required|date_format:Y-m-d',
         'date_end'=> 'required|date_format:Y-m-d',
-        'status'=>'required|in:Iniciado,em trânsito,concluido'
+        'status'=>'required|in:Iniciado,em trânsito,concluido',
+        'user_id'=>'',
     ];
     //mensagens de validação
     public static $messages =
@@ -40,8 +41,11 @@ class Freight extends Model
         'vehicle_owner.required'=>'Dono do Veiculo é Obrigatório',
         'price_freight.required'=>'Valor do frete Obrigatóio',
         'date_start.required'=>'Data inicio Obrigatória',
+        'date_start.date_format'=>'formato de data invalido',
+        'date_end.date_format'=>'formato de data invalido',
         'date_end.required'=>'Data fim Obrigatória',
         'status.required'=>'Status Obrigatório',
+        'status.in'=> 'Permitidos apenas(Iniciado,em trânsito,concluido)'
     ];
     public function user()
     {

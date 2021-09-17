@@ -25,12 +25,13 @@ class FreightController extends Controller
     {
        $freights = $this->freight->all();
 
-       if($freights)
-       {
-           return response()->json([
-            'data'=>$freights,
-           ]);
-       }
+        if(empty($freights))
+        {
+            return response()->json([
+                'msg_fails'=>'Nenhum frete encontrado'
+            ]);
+        }
+        return response()->json($freights);
 
     }
 
@@ -75,7 +76,28 @@ class FreightController extends Controller
      */
     public function show($id)
     {
-        //
+        $show = $this->freight->show($id);
+        if($show)
+        {
+            return response()->json([
+                $show
+            ]);
+        }
+        return response()->json([
+            'msg_fails'=>'Nenhum frete encontrado',
+        ]);
+    }
+
+    public function listFreightClient()
+    {
+        $list = $this->freight->listFreightClient();
+        if($list)
+        {
+            return response()->json($list);
+        }
+        return response()->json([
+            'msg_fails'=>'Nenhum frete encontrado a este usuario',
+        ]);
     }
 
     /**
@@ -96,9 +118,18 @@ class FreightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FreightRequest $request, $id)
     {
-        //
+        $update =$this->freight->update($request,$id);
+        if($update)
+        {
+            return response()->json([
+                'msg_success'=>'Frete atualizado com sucesso',
+            ]);
+        }
+        return response()->json([
+            'msg_fails'=>'Não foi possivel atualizar o frete',
+        ]);
     }
 
     /**
@@ -109,6 +140,39 @@ class FreightController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $freight = $this->freight->destroy($id);
+        if($freight)
+        {
+            return $freight;
+        }
+        return response()->json([
+            'msg_fails'=>'error ao deletar o frete',
+        ]);
+    }
+    public function findByBoard(Request $request)
+    {
+        $filter = $this->freight->findByBoard($request);
+        if($filter)
+        {
+            return response()->json([
+                $filter
+            ]);
+        }
+        return response()->json([
+            'msg_fails'=>'placa do veiculo não existe'
+        ]);
+    }
+    public function findByVehile_owner(Request $request)
+    {
+        $filter = $this->freight->findByVehile_owner($request);
+        if($filter)
+        {
+            return response()->json([
+                $filter
+            ]);
+        }
+        return response()->json([
+            'msg_fails'=>'Dono não encontrado',
+        ]);
     }
 }

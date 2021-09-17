@@ -11,8 +11,10 @@ interface FreightRepositoryInterface{
     public function all();
     public function store(FreightRequest $request);
     public function show($id);
+    public function listFreightClient();
     public function update(FreightRequest $request,$id);
     public function destroy($id);
     public function findByBoard(Request $request);
+    public function findByVehile_owner(Request $request);
 
 }

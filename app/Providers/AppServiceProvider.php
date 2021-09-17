@@ -15,7 +15,12 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'App\Repositories\FreightRepositoryInterface',
-            'App\Repositories\FreightRepository'
+            'App\Repositories\FreightRepository',
+
+        );
+        $this->app->bind(
+            'App\Repositories\UserRepositoryInterface',
+            'App\Repositories\UserRepository',
         );
     }
 

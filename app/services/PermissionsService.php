@@ -17,4 +17,11 @@ class PermissionsService
         $adminRole = $adminRole['name'];
         return $adminRole;
     }
+
+    public static function permissionsClient()
+    {
+        $client = Role::findById(2);
+        $client = $client['name'];
+        return $client;
+    }
 }
