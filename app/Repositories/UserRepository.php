@@ -64,9 +64,25 @@ class UserRepository implements UserRepositoryInterface{
         }
         return false;
     }
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $validateData = $request->all();
+        $validateData = $request->validate([
+            'name'=>'required|string|max:255',
+            'surname'=>'required|string|max:255',
+            'email'=>'required|string|email',
+            'password'=>'required|min:8',
+        ],[
+            'name.required'=>'Nome Obrigatório',
+            'surname.required'=>'Sobrenome Obrigatório',
+            'email.required'=>'E-mail Obrigatório',
+            'email.email'=>'E-email não é valido',
+            'password.required'=>'Senha Obrigatório',
+            'password.min'=>'Senha tem que ter pelo menos 8 caracteres'
+        ]);
+        if($request->has('password'))
+        {
+            $validateData['password'] = Hash::make($validateData['password']);
+        }
         $updateUser = User::find($id);
         if($updateUser)
         {
@@ -94,7 +110,9 @@ class UserRepository implements UserRepositoryInterface{
     public function findByName(Request $request)
     {
         $validateData = $request->validate([
-            'nameUser'=>'required|string|255',
+            'nameUser'=>'required|string|max:255',
+        ],[
+            'nameUser.required'=>'Nome e sobrenome do usuario Obrigatório'
         ]);
         $user = User::where('name','LIKE','%' . $validateData['nameUser'].'%')->orderBy('name')->paginate(10);
         if($user)

@@ -29,6 +29,8 @@ class User extends Authenticatable implements JWTSubject
     [
         'password',
         'token',
+        'created_at',
+        'updated_at'
     ];
     public static $rules =
     [
@@ -61,6 +63,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(Freight::class);
     }
-   
+
 
 }

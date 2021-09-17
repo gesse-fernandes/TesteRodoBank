@@ -118,7 +118,7 @@ class FreightController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(FreightRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $update =$this->freight->update($request,$id);
         if($update)

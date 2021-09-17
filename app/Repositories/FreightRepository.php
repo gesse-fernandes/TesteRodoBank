@@ -26,8 +26,9 @@ class FreightRepository implements FreightRepositoryInterface
     public function store(FreightRequest $request)
     {
 
-       
+
         $validateData = $request->all();
+        $id = $validateData['user_id']??null;
         $freight = Freight::create([
             'board' => $validateData['board'],
             'vehicle_owner' => $validateData['vehicle_owner'],
@@ -35,7 +36,7 @@ class FreightRepository implements FreightRepositoryInterface
             'date_start' => $validateData['date_start'],
             'date_end' => $validateData['date_end'],
             'status' => $validateData['status'],
-            'user_id'=>$validateData['user_id'],
+            'user_id'=>$id,
         ]);
         return $freight;
     }
@@ -52,7 +53,7 @@ class FreightRepository implements FreightRepositoryInterface
     }
     public function listFreightClient()
     {
-        $id = auth()->user->id;
+        $id = auth()->user()->id;
         $freight = Freight::query()
                    ->where('user_id','=',$id)
                    ->paginate(5);
@@ -63,9 +64,17 @@ class FreightRepository implements FreightRepositoryInterface
         return false;
     }
 
-    public function update(FreightRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $validateData = $request->all();
+        $validateData = $request->validate([
+            'board' => 'string|required',
+            'vehicle_owner' => 'string|required',
+            'price_freight' => 'required',
+            'date_start' => 'required|date_format:Y-m-d',
+            'date_end' => 'required|date_format:Y-m-d',
+            'status' => 'required|in:Iniciado,em trânsito,concluido',
+            'user_id' => '',
+        ]);
         $updateFreight = Freight::find($id);
         if($updateFreight)
         {
@@ -95,11 +104,13 @@ class FreightRepository implements FreightRepositoryInterface
     {
         $validateData = $request->validate([
             'boardVehicle'=>'string|required',
+        ],[
+            'boardVehicle.required'=>'Placa do veiculo Obrigatório'
         ]);
         $filter = Freight::query()
                   ->where('board','LIKE','%' . $validateData['boardVehicle'] . '%')
 
-                  ->get();
+                  ->get()->first();
         if($filter)
         {
             return $filter;
@@ -110,7 +121,9 @@ class FreightRepository implements FreightRepositoryInterface
     public function findByVehile_owner(Request $request)
     {
         $validateData = $request->validate([
-            'vehile_owner'=>'required|string|255',
+            'vehile_owner'=>'required|string|max:255',
+        ],[
+            'vehile_owner.required'=>'Nome do dono do veiculo Obrigatório'
         ]);
 
         $filter = Freight::query()
