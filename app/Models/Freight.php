@@ -20,7 +20,8 @@ class Freight extends Model
         'price_freight',
         'date_start',
         'date_end',
-        'status'
+        'status',
+        'user_id'
     ];
     //aqui onde vai ser os campos obrigatorios na validação
     public static $rules =
@@ -42,4 +43,8 @@ class Freight extends Model
         'date_end.required'=>'Data fim Obrigatória',
         'status.required'=>'Status Obrigatório',
     ];
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

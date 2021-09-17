@@ -38,6 +38,6 @@ class User extends Model
 
     public function freight()
     {
-        return $this->belongsTo('')
+        return $this->belongsTo(Freight::class);
     }
 }
