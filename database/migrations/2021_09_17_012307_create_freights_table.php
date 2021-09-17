@@ -29,6 +29,7 @@ class CreateFreightsTable extends Migration
             $table->date('date_end');
             //status coloquei como enum pois vai ser 3 opções.
             $table->enum('status',['Iniciado','em trânsito','concluído']);
+            $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
         });
     }
 
