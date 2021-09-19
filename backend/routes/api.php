@@ -45,4 +45,5 @@ Route::middleware('auth:api')->group(function(){
 Route::get('/401', [AuthController::class, 'unauthorized']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/freight/pesquisarPlaca',[FreightController::class, 'findByBoard'])->name('freight.board');
-Route::get('/getUser',[AuthController::class, 'getAuthenticatedUser']);
+Route::get('me',[AuthController::class, 'getAuthenticatedUser']);
+Route::post('/user/criar',[UserController::class,'store']);

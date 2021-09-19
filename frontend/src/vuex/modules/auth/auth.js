@@ -8,16 +8,16 @@ import {
 const RESOURCE = 'auth/login'
 
 const state = {
-    getUser: {},
+    me: {},
     authenticated:false
 }
 const mutations = {
     AUTH_USER_OK(state, user) {
-        state.getUser = user,
+        state.me = user,
         state.authenticated =true
     },
     AUTH_USER_LOGOUT(state) {
-        state.getUser = {},
+        state.me = {},
         state.authenticated = false
     }
 }
@@ -27,8 +27,10 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios.post(`${URL_BASE}${RESOURCE}`, formData).then(response => {
                 conext.commit('AUTH_USER_OK', response.data)
+                
                 localStorage.setItem(NAME_TOKEN, response.data.access_token)
-                localStorage.setItem(USER_TYPE, response.data.type_role)
+                localStorage.setItem('type', response.data.type_role)
+                  axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
                 resolve()
                 
             })
@@ -41,28 +43,29 @@ const actions = {
     },
     logout(context) {
         localStorage.removeItem(NAME_TOKEN)
-        localStorage.removeItem(USER_TYPE)
+        localStorage.removeItem('type')
          context.commit('AUTH_USER_LOGOUT')
     },
     checkLogin(context) {
         const accessToken = localStorage.getItem(NAME_TOKEN)
-        const user_type = localStorage.getItem(USER_TYPE)
+        const user_type = localStorage.getItem('type')
         return new Promise((resolve, reject) => {
-            if (!accessToken && !user_type) {
+            if (!accessToken) {
+                
                 context.commit('AUTH_USER_LOGOUT')
                 return reject()
             }
-            return axios.get(`${URL_BASE}getUser`)
+            return axios.get(`${URL_BASE}me`)
                 .then(response => {
                     const user = response.data.user
                     context.commit('AUTH_USER_OK', user)
-
+                   
                     return resolve()
 
                 })
                 .catch(error => {
                     localStorage.removeItem(NAME_TOKEN)
-                    localStorage.removeItem(USER_TYPE)
+                    localStorage.removeItem('type')
                     context.commit('AUTH_USER_LOGOUT')
                     return reject(error.response.data)
             })

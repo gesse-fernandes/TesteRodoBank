@@ -4,6 +4,7 @@
       <div class="container">
         <ul class="nav navbar-nav navbar-right">
             <router-link class="nav-link" to="/login" >Login</router-link>
+            <router-link class="nav-link" to="/criar" >cadastrar</router-link>
         </ul>
 
       

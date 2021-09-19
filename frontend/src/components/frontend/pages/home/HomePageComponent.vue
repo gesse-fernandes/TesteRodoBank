@@ -5,6 +5,9 @@
       <h2>Acesso abaixo</h2>
       <p>Login: admin@admin.com</p>
       <p>Senha: 12345678</p>
-       <router-link class="nav-link" to="/login" >Login</router-link>
+       <router-link class=" btn btn-primary" to="/login" >Login</router-link>
+       <br>
+       <br>
+        <router-link class="btn btn-primary" to="/criar" >Cadastrar</router-link>
   </div>
 </template>

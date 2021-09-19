@@ -21,9 +21,21 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 store.dispatch('checkLogin')
-  .then(() => router.push({
-    name: 'dashboard'
-  }))
+  .then(() => {
+    const type = localStorage.getItem('type');
+    console.log(type);
+    if (type == 'client')
+    {
+      router.push({
+          name:'client'
+        })
+    } else if (type == 'admin')
+    {
+         router.push({
+           name: 'admin'
+         })
+      }
+  })
   .catch((error) => router.push({
     name: 'home'
   }))

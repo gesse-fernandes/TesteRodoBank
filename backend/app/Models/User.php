@@ -34,8 +34,8 @@ class User extends Authenticatable implements JWTSubject
     ];
     public static $rules =
     [
-        'name' => 'string|required|max:255',
-        'surname' => 'string|required|max:255',
+        'name' => 'required|max:255',
+        'surname' => 'required|max:255',
         'email' => 'required|email|unique:users|max:255',
         'password'=>'required|min:8'
     ];
