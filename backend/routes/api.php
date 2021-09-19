@@ -22,15 +22,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->group(function(){
     Route::group(['middleware'=>['role:admin']],function(){
-        Route::post('/freight/criar', [FreightController::class, 'store'])->name('freight.create');
-        Route::get('/freight/listar', [FreightController::class, 'index'])->name('freight.list');
-        Route::get('/user/listar',[UserController::class,'index'])->name('users.list');
-        Route::delete('/user/deletar/{id}',[UserController::class,'destroy'])->name('users.destroy');
+
         Route::post('/user/pesquisar',[UserController::class, 'findByuser'])->name('users.findUser');
-        Route::get('/freight/{id}',[FreightController::class,'show'])->name('freight.show');
-        Route::put('/freight/atualizar/{id}',[FreightController::class,'update'])->name('freight.update');
-        Route::delete('/freight/deletar/{id}',[FreightController::class,'destroy'])->name('freight.destroy');
         Route::post('/freight/pesquisar',[FreightController::class, 'findByVehile_owner'])->name('freight.findByvehicle_owner');
+        Route::resource('freight', FreightController::class);
+        Route::resource('user',UserController::class);
     });
 });
 
@@ -46,8 +42,7 @@ Route::middleware('auth:api')->group(function(){
     Route::get('/user/{id}',[UserController::class,'show'])->name('users.show');
     Route::put('/user/atualizar/{id}',[UserController::class,'update'])->name('users.update');
 });
-
-Route::post('/user/criar',[UserController::class,'store'])->name('users.create');
 Route::get('/401', [AuthController::class, 'unauthorized']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/freight/pesquisarPlaca',[FreightController::class, 'findByBoard'])->name('freight.board');
+Route::get('/getUser',[AuthController::class, 'getAuthenticatedUser']);
