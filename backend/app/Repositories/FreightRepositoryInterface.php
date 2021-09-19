@@ -17,4 +17,5 @@ interface FreightRepositoryInterface{
     public function findByBoard(Request $request);
     public function findByVehile_owner(Request $request);
 
+
 }

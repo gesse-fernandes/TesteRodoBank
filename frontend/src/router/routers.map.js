@@ -6,6 +6,7 @@ import createUser from '../components/frontend/pages/createUser/UserCreateCompon
 import clientComponent from '../components/client/ClientComponent'
 import adminComponent from '../components/admin/AdminComponent'
 import freightComponent from '../components/admin/pages/freights_modal/Freights'
+import userComponent from '../components/admin/pages/users_modal/Users'
 export default [
     {
         path: '/',
@@ -45,10 +46,15 @@ export default [
          component: adminComponent,
          name: 'admin',
            children: [{
-                   path: '',
+                   path: 'freights',
                    component: freightComponent,
                    name: 'freight'
-               },
+           },
+               {
+                   path: 'users',
+                   component: userComponent,
+                   name:'user'
+               }
            ]
      }
    

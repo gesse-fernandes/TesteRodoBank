@@ -15,14 +15,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $user;
-
+    private $totalPage = 4;
     public function __construct(UserRepositoryInterface $userRepositoryInterface)
     {
         $this->user = $userRepositoryInterface;
     }
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->user->index();
+        $users = $this->user->index($request, $this->totalPage);
         if(empty($users))
         {
             return response()->json([

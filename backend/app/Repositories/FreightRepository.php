@@ -23,6 +23,8 @@ class FreightRepository implements FreightRepositoryInterface
         return false;
     }
 
+    
+
     public function store(FreightRequest $request)
     {
 

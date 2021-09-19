@@ -4,7 +4,7 @@
       <div class="container">
         <ul class="nav navbar-nav navbar-right">
           <router-link class="nav-link" :to="{name: 'freight'}">Lista de fretes</router-link>
-          <router-link v-if="me.name"  class="nav-link" :to="{name: 'users'}">Usuarios</router-link>
+          <router-link v-if="me.name"  class="nav-link" :to="{name: 'user'}">Usuarios</router-link>
           <router-link v-else class="nav-link" :to="{name: 'auth'}">Login</router-link>
         </ul>
 
