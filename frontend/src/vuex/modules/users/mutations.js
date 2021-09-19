@@ -1,5 +1,5 @@
 export default {
-    USERS_LOADING(state, users) {
-        state.items = users
+    PRODUCTS_LOAD(state, products) {
+        state.items = products
     }
 }

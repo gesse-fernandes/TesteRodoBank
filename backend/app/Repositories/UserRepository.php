@@ -10,33 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterface{
-    public function index(Request $request)
+    public function index()
     {
-        $totalPage = 4;
-        $user = $this->getResults($request->all(),$totalPage);
+        $user = User::paginate(10);
         return $user;
-    }
-    public function getResults(array $data, int $totalPage)
-    {
-       if(!isset($data['name']) && !isset($data['surname']) && !isset($data['email'])&& !isset($data['filter']))
-        return User::query()->orderBy('id','DESC')->paginate($totalPage);
-
-        return User::where(function ($query) use ($data){
-            if(isset($data['name'])){
-                $name = $data['name'];
-                $query->where('name','LIKE',"%{$name}%");
-            }
-            if(isset($data['surname'])){
-                $surname = $data['surname'];
-                $query->where('surname','LIKE',"%{$surname}%");
-            }
-            if(isset($data['filter'])){
-                $filter = $data['filter'];
-                $query->where('name','LIKE',"%{$filter}%")->orWhere('surname','LIKE',"%{$filter}%");
-
-            }
-        }) ->orderBy('id','DESC')
-            ->paginate($totalPage);
     }
 
     public function store(UserRequest $request)

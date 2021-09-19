@@ -12,10 +12,11 @@ const CONFIG = {
 export default {
     loadUsers(context, params) {
         context.commit('LOADING', true)
-        axios.get(`${URL_BASE}${RESOURCE}`, { params })
+        axios.get(`${URL_BASE}${RESOURCE}`)
             .then(response => {
                 console.log(response.data)
-                context.commit("USERS_LOAD",response.data)
+                context.commit("USERS_LOADING", response.data)
+                params = response.data.total;
             })
             .catch(error => {
             console.log(error)

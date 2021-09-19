@@ -5,7 +5,7 @@
 
         <div class="row options">
             <div class="col">
-                <a ref="modal" @click.prevent="testandoApi()" class="btn btn-success">
+                <a ref="modal" @click.prevent="create" class="btn btn-success">
                     Adicionar
                 </a>
             </div>
@@ -37,7 +37,6 @@
 import Vodal from 'vodal'
 import PaginationComponent from '../../../layouts/PaginationComponent.vue'
 import  formUserComponent from './partials/FormUserComponent'
-import axios from 'axios'
 export default {
     name: 'user-component',
     create (){
@@ -97,11 +96,6 @@ export default {
                     surname:'',
                     email: '',
                 }
-            },
-            testandoApi(){
-                axios.get("http://127.0.0.1:8000/api/user").then(response => {
-                    console.log(response.data);
-                });
             }
         },
         components: {
