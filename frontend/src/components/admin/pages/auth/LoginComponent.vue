@@ -63,11 +63,11 @@ export default {
                         const type = localStorage.getItem('type');
                         if(type == 'admin')
                         {
-                            
-                            this.$router.push({name: 'freight'})
+                            this.$store.dispatch('checkLogin')
+                            this.$router.push({name: 'admin'})
                         }else if(type == 'client'){
                             
-
+                            this.$store.dispatch('checkLogin')
                              this.$router.push({name: 'client'})
                         }
                         

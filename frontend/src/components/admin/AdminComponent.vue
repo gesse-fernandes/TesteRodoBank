@@ -3,10 +3,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <ul class="nav navbar-nav navbar-right">
-          <router-link class="nav-link" :to="{name: 'dashboard'}">Dashboard</router-link>
-          <router-link v-if="me.name"  class="nav-link" :to="{name: 'products'}">Produtos</router-link>
+          <router-link class="nav-link" :to="{name: 'freight'}">Lista de fretes</router-link>
+          <router-link v-if="me.name"  class="nav-link" :to="{name: 'users'}">Usuarios</router-link>
           <router-link v-else class="nav-link" :to="{name: 'auth'}">Login</router-link>
-          <router-link class="nav-link" :to="{name: 'charts'}">Gráficos</router-link>
         </ul>
 
         <div v-if="me.name">
@@ -42,7 +41,7 @@ export default {
 
       this.$snotify.success('Sucesso ao deslogar', 'logout...')
 
-      this.$router.push({name: 'auth'})
+      this.$router.push({name: 'home'})
     }
   }
 }

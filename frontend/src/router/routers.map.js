@@ -24,21 +24,8 @@ export default [
         component: LoginComponent,
         name:'auth'
     },
-    {
-        path: '/admin',
-        component: adminComponent,
-        meta: {
-            auth: true
-        },
-        name: 'admin',
-        children: [
-            {
-            path: '/freight',
-            component: freightComponent,
-            name:'freight'
-            
-        }]
-    },
+    
+
     {
         path: '*',
         component:Page404,
@@ -52,6 +39,17 @@ export default [
         path: '/client',
         component: clientComponent,
         name:'client'
-    }
+    },
+     {
+         path: '/admin',
+         component: adminComponent,
+         name: 'admin',
+           children: [{
+                   path: '',
+                   component: freightComponent,
+                   name: 'freight'
+               },
+           ]
+     }
    
 ]
